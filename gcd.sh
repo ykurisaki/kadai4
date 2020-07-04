@@ -1,18 +1,55 @@
 #!/bin/bash
+#最大公約数計算シェル
+#1.入力引数チェック
+#2.チェックエラーの場合、メッセージ出力（エラー終了させない）
+#3.計算関数
 
-#echo "2個の整数を入力してください"
-#read str1 str2
 
-if [ $# -ne 2 ]; then 		# 2個でない場合
-echo "$#個の引数が入力されています。引数の数が不正です。" 	# エラーメッセージ
-exit 1 # 終了ステータス
+
+#入力パラメーター数チェック
+if [ $# -ne 2 ];then
+    echo "引数を2個指定くだざい。"
+    exit 
 fi
 
-expr $1 + $2 > /dev/null 2>&1 	# 数字以外の入力の場合
-if [ $? -ge 2 ]; then 		
-echo "$1と$2が入力されました。2個の整数を入力してください" 	# エラーメッセージ
-exit 1 		# 終了ステータス
+#引数1の型チエック
+if echo "$1" | grep -q "^[0-9]\+$";then
+    echo "数値1は:$1"
+else
+    echo "数値1は「0-9」の数字を入力してくだざい。"
+    exit 
 fi
 
-echo "$1と$2の最大公約数は↓" 
-yes $1 $2 | awk '{print $1/NR RS $2/NR}' | grep -Fv --line-buffered . | awk 'a[$1]++{print;exit}'
+#引数2の型チェック
+if echo "$2" | grep -q "^[0-9]\+$";then
+    echo "数値2は:$2"
+else
+    echo "数値2は「0-9」の数字を入力してくだざい。"
+    exit 
+fi
+
+#パラメーターの値が0の場合、0を返す処理終了
+if [ $1 -eq 0 -o $2 -eq 0 ];then
+    echo "最大公約数は:0"
+    exit 
+fi
+
+#変数設定
+vara=$1
+varb=$2
+
+#最大公約数算出関数
+gcd(){
+    while [ $vara -ne $varb  ]
+    do
+    if [ $vara -gt $varb  ];then
+        vara=$(( vara-varb ))
+    else
+        varb=$(( varb-vara ))
+    fi
+    done
+    echo "最大公約数は :$vara"
+}
+
+#関数呼び出す
+gcd $1 $2
