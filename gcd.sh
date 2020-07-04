@@ -8,29 +8,29 @@
 
 #入力パラメーター数チェック
 if [ $# -ne 2 ];then
-    echo "引数を2個指定くだざい。"
+    echo "引数を2個指定してください"
     exit 
 fi
 
 #引数1の型チエック
 if echo "$1" | grep -q "^[0-9]\+$";then
-    echo "数値1は:$1"
+    echo "1つ目の入力値は:$1"
 else
-    echo "数値1は「0-9」の数字を入力してくだざい。"
+    echo "自然数を入力してくだざい"
     exit 
 fi
 
 #引数2の型チェック
 if echo "$2" | grep -q "^[0-9]\+$";then
-    echo "数値2は:$2"
+    echo "2つ目の入力値は:$2"
 else
-    echo "数値2は「0-9」の数字を入力してくだざい。"
+    echo "自然数を入力してください"
     exit 
 fi
 
-#パラメーターの値が0の場合、0を返す処理終了
+#パラメーターの値が0の場合、0を返す
 if [ $1 -eq 0 -o $2 -eq 0 ];then
-    echo "最大公約数は:0"
+    echo "最大公約数:0"
     exit 
 fi
 
@@ -38,7 +38,7 @@ fi
 vara=$1
 varb=$2
 
-#最大公約数算出関数
+#最大公約数計算
 gcd(){
     while [ $vara -ne $varb  ]
     do
@@ -48,7 +48,7 @@ gcd(){
         varb=$(( varb-vara ))
     fi
     done
-    echo "最大公約数は :$vara"
+    echo "最大公約数:$vara"
 }
 
 #関数呼び出す
