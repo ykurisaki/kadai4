@@ -1,0 +1,3 @@
+language: bash
+scipt:
+   - ./gcdtest.sh
